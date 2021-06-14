@@ -1,0 +1,8 @@
+/* ***** ----------------------------------------------- ***** **
+** ***** Utilities/Background Attachment
+** ***** ----------------------------------------------- ***** */
+
+$backgroundAttachmentUtilities: (
+  'bgScroll': ( background-attachment: scroll ),
+  'bgFixed': ( background-attachment: fixed )
+);

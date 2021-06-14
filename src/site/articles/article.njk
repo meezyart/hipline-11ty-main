@@ -1,0 +1,69 @@
+---
+layout: default
+bodyClasses: p-article
+viewName: article
+pagination:
+  data: articles.all
+  size: 1
+  alias: article
+permalink: /articles/{{ article.slug }}/
+eleventyComputed:
+  title: "{{ article.title | safe }}"
+  featuredImage: "{% if article.featuredImage %}{% imageUrl article.featuredImage, 1200 %}{% else %}{% endif %}"
+  pageDescription: "{{ article.excerpt | safe }}"
+  metaTitle: "{{ article.articleMetaData.pageTitle | safe }}"
+  metaDescription: "{{ article.articleMetaData.pageDescription | safe }}"
+  metaShareImage: "{% if article.articleMetaData.pageShareImage %}{% imageUrl article.articleMetaData.pageShareImage, 1200 %}{% else %}{% endif %}"
+---
+
+<div class="l-container l-container--small" data-s2r="single" data-s2r-type="stagger-fade-up">
+  <article>
+
+    {% if article.featuredImage %}
+      <div class="u-mb20 u-mb40-md" data-s2r-el>
+        <img data-srcset="{% imageSrcset article.featuredImage %}" class="lazyload" data-sizes="auto">
+      </div>
+    {% endif %}
+
+    <header>
+      {% if article.title %}
+        <h2 class="u-h3" data-s2r-el>{{ article.title }}</h2>
+      {% endif %}
+
+      <div class="u-mt5" data-s2r-el>
+        <time class="u-uppercase u-font14" datetime="{{ article.publishedAt | htmlDate }}">{{ article.publishedAt | readableDate }}</time>
+        {% if article.categories.length %}
+          <span>/</span>
+          <span class="u-uppercase u-font14">
+            Categories:
+            {% for category in article.categories %}
+              <a href="{{ category.slug | articleCategoryUrl }}">{{ category.title }}</a>
+              {%- if not loop.last -%}, {%- endif -%}
+            {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+    </header>
+
+    {% if article.mainContent %}
+      <div class="o-richTextEditor u-mt30" data-s2r-el>
+        {{ article.mainContent | blocksToHtml | safe }}
+      </div>
+    {% endif %}
+
+  </article>
+
+  {% if article.previousArticle or article.nextArticle %}
+    <div class="u-uppercase u-font14 u-mt40 u-mt60-md" data-s2r-el>
+      {% if article.previousArticle %}
+        <a href="{{ article.previousArticle.slug | articleUrl }}">&laquo; Previous Article</a>
+      {% endif %}
+      {% if article.previousArticle and article.nextArticle %}
+        <span class="u-px5">/</span>
+      {% endif %}
+      {% if article.nextArticle %}
+        <a href="{{ article.nextArticle.slug | articleUrl }}">Next Article &raquo;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

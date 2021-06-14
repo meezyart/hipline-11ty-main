@@ -1,0 +1,11 @@
+/* ***** ----------------------------------------------- ***** **
+** ***** Elements/Paragraph Styles
+** ***** ----------------------------------------------- ***** */
+
+p {
+  line-height: map-get($lineHeight, loose);
+  margin: get-size(20) 0;
+  @include mq('md') {
+    margin: get-size(25, true) 0;
+  }
+}

@@ -1,0 +1,15 @@
+/* ***** ----------------------------------------------- ***** **
+** ***** Utilities/Width
+** ***** ----------------------------------------------- ***** */
+
+// Refer to 2-settings/_sizing.scss for the classes generated
+$widthUtilities: ();
+
+@each $key, $value in $width {
+  $key: capitalize($key);
+  $widthUtilities: map-merge(
+    $widthUtilities, (
+      'w#{$key}' : ( width: $value )
+    )
+  );
+}
